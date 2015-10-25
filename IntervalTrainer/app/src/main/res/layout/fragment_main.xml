@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="kieran.fraser.intervaltrainer.MainFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/bt_add_music"
+            android:text="@string/add_music"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/start_timer"
+            android:id="@+id/bt_start_timer"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/tv_clock"
+            android:textColor="#000000"
+            android:text="this is text"
+            android:layout_marginTop="300dp"/>
+
+    </RelativeLayout>
+
+</FrameLayout>
