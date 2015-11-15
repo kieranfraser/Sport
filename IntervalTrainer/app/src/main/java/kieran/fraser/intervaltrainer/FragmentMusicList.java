@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,7 +162,20 @@ public class FragmentMusicList extends Fragment {
     }
 
     public static void songPicked(View view, Context context){
-        Toast.makeText(context, "Clicked music!", Toast.LENGTH_LONG).show();
+        switch(view.getId()){
+            case 0:
+                Log.d("Kieran", "test");
+                return;
+            case 1:
+                return;
+            case 2:
+                return;
+            default:
+                return;
+
+
+        }
+        //Toast.makeText(context, "Clicked music!", Toast.LENGTH_LONG).show();
     }
 
 }

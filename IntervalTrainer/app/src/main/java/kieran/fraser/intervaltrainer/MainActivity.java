@@ -1,12 +1,9 @@
 package kieran.fraser.intervaltrainer;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +11,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends Activity implements MainFragment.OnFragmentInteractionListener,
-FragmentMusicList.OnFragmentInteractionListener{
-
+FragmentMusicList.OnFragmentInteractionListener {
 
 
     @Override
@@ -53,7 +49,9 @@ FragmentMusicList.OnFragmentInteractionListener{
 
     }
 
-    public void songPicked(View view){
+    public void songPicked(View view) {
         FragmentMusicList.songPicked(view, this);
     }
+
+
 }

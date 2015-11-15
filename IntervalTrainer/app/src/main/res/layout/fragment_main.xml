@@ -4,28 +4,40 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/highlighted_text_material_light">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/bt_add_music"
-            android:text="@string/add_music"/>
+            android:text="@string/add_music"
+            android:background="@color/hint_foreground_material_dark"
+            android:textColor="#000000"
+            android:layout_marginTop="25dp"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/start_timer"
-            android:id="@+id/bt_start_timer"/>
+            android:layout_marginTop="25dp"
+            android:text="@string/sign_in"
+            android:id="@+id/bt_sign_in"
+            android:background="@color/hint_foreground_material_dark"
+            android:textColor="#000000"
+            android:layout_below="@id/bt_add_music"
+            />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/tv_clock"
             android:textColor="#000000"
             android:text="this is text"
-            android:layout_marginTop="300dp"/>
+            android:layout_below="@id/bt_sign_in"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="50dp"
+            android:textSize="50dp"/>
 
     </RelativeLayout>
 

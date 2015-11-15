@@ -1,11 +1,12 @@
 package kieran.fraser.intervaltrainer;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ public class MainFragment extends Fragment implements
 
     private OnFragmentInteractionListener mListener;
     private Button addMusic;
-    private Button startTimer;
+    private Button signIn;
     private TextView clock;
 
     /**
@@ -76,9 +77,10 @@ public class MainFragment extends Fragment implements
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         addMusic = (Button) root.findViewById(R.id.bt_add_music);
-        startTimer = (Button) root.findViewById(R.id.bt_start_timer);
+        signIn = (Button) root.findViewById(R.id.bt_sign_in);
         clock = (TextView) root.findViewById(R.id.tv_clock);
-        startTimer.setOnClickListener(this);
+        clock.setText("");
+        signIn.setOnClickListener(this);
         addMusic.setOnClickListener(this);
         return root;
     }
@@ -113,10 +115,10 @@ public class MainFragment extends Fragment implements
             case R.id.bt_add_music:
                 transition(new FragmentMusicList());
                 break;
-            case R.id.bt_start_timer:
-                clock.setText("hello");
-                Toast.makeText(getActivity(), "clicked!", Toast.LENGTH_LONG).show();
-                startTimer();
+            case R.id.bt_sign_in:
+                Toast.makeText(getActivity(), "Sign In", Toast.LENGTH_LONG).show();
+                Intent myIntent = new Intent(getActivity(), DashboardActivity.class);
+                getActivity().startActivity(myIntent);
             default:
                 break;
         }
@@ -150,7 +152,8 @@ public class MainFragment extends Fragment implements
         new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                clock.setText("seconds remaining: " + millisUntilFinished / 1000);
+                long clockTime = millisUntilFinished / 1000;
+                clock.setText(String.valueOf(clockTime));
             }
 
             public void onFinish() {
