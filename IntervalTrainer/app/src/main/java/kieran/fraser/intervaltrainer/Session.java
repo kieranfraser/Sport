@@ -9,8 +9,14 @@ public class Session {
     private int restTime;
     private int roundNum;
     private int breakTime;
+    private int setValue;
 
     private State currentState;
+    private State prevState;
+
+    public int getSetValue() {return setValue; }
+
+    public void setSetValue(int setValue) { this.setValue = setValue; }
 
     public int getWorkTime() {
         return workTime;
@@ -50,5 +56,13 @@ public class Session {
 
     public void setCurrentState(State currentState) {
         this.currentState = currentState;
+    }
+
+    public State getPrevState() {
+        return prevState;
+    }
+
+    public void setPrevState(State prevState) {
+        this.prevState = prevState;
     }
 }

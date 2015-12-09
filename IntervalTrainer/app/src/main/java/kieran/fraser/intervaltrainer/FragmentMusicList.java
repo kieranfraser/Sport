@@ -2,18 +2,26 @@ package kieran.fraser.intervaltrainer;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,7 +35,7 @@ import java.util.Comparator;
  * Use the {@link FragmentMusicList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentMusicList extends Fragment {
+public class FragmentMusicList extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -95,12 +103,24 @@ public class FragmentMusicList extends Fragment {
 
         SongAdapter songAdapter = new SongAdapter(getActivity(), musicList);
         musicView.setAdapter(songAdapter);
+
+        musicView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                TextView tvSong = (TextView) view.findViewById(R.id.song_title);
+                Log.d("Music: ", String.valueOf(tvSong.getText()));
+            }
+        });
         return rootView;
     }
 
     public void getMusicList(){
         ContentResolver musicResolver = getActivity().getContentResolver();
         Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        boolean first = true;
+
+
         Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
 
         if(musicCursor!=null && musicCursor.moveToFirst()){
@@ -111,12 +131,24 @@ public class FragmentMusicList extends Fragment {
                     (android.provider.MediaStore.Audio.Media._ID);
             int artistColumn = musicCursor.getColumnIndex
                     (android.provider.MediaStore.Audio.Media.ARTIST);
+            String data = musicCursor.getString(musicCursor.getColumnIndex
+                    (MediaStore.Audio.Media.DATA));
+                first = false;
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try {
+                    mediaPlayer.setDataSource(getActivity(), Uri.parse(data));
+                    mediaPlayer.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mediaPlayer.start();
             //add songs to list
             do {
                 long thisId = musicCursor.getLong(idColumn);
                 String thisTitle = musicCursor.getString(titleColumn);
                 String thisArtist = musicCursor.getString(artistColumn);
-                musicList.add(new Song(thisId, thisTitle, thisArtist));
+                musicList.add(new Song(thisId, thisTitle, thisArtist, data));
             }
             while (musicCursor.moveToNext());
         }
@@ -144,6 +176,11 @@ public class FragmentMusicList extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
     /**

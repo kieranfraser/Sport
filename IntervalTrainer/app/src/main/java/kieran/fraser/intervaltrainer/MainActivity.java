@@ -9,10 +9,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends Activity implements MainFragment.OnFragmentInteractionListener,
 FragmentMusicList.OnFragmentInteractionListener {
 
+    ArrayList<Song> songList;
+
+    public ArrayList<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(ArrayList<Song> songList) {
+        this.songList = songList;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +34,7 @@ FragmentMusicList.OnFragmentInteractionListener {
                     .add(R.id.container, new MainFragment())
                     .commit();
         }
+        songList = new ArrayList<>();
     }
 
 

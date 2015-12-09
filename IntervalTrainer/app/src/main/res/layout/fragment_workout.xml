@@ -177,49 +177,123 @@
                 android:layout_weight="1.0"
                 android:background="#467788">
 
-                <TextView
-                    android:id="@+id/tv_round_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Rounds"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textIsSelectable="false"
-                    android:gravity="center_horizontal"
-                    android:background="#123456"
-                    android:textColor="#999999" />
-
-                <TextView
-                    android:id="@+id/tv_round_value"
-                    android:layout_below="@id/tv_round_title"
-                    android:gravity="center_horizontal"
-                    android:layout_width="match_parent"
-                    android:textSize="100dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="60"
-                    android:layout_gravity="center_vertical"/>
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    android:layout_alignParentBottom="true"
-                    android:padding="5dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1.0">
 
-                    <ImageView
+                    <TextView
+                        android:id="@+id/tv_round_title"
                         android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/ib_round_down"
-                        android:layout_weight="1.0"
-                        android:src="@drawable/minus_black"/>
+                        android:layout_height="wrap_content"
+                        android:text="Rounds"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:textIsSelectable="false"
+                        android:gravity="center_horizontal"
+                        android:background="#123456"
+                        android:textColor="#999999"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1.0">
 
-                    <ImageView
+
+                        <TextView
+                            android:id="@+id/tv_round_value"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:textSize="50dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="60"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.0"/>
+
+                        <LinearLayout
+                            android:id="@+id/ll_round_buttons"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_below="@id/tv_round_value"
+                            android:padding="5dp"
+                            android:layout_weight="1.0">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:id="@+id/ib_round_down"
+                                android:layout_weight="1.0"
+                                android:src="@drawable/minus_black"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:id="@+id/ib_round_up"
+                                android:layout_weight="1.0"
+                                android:src="@drawable/plus_black"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_sets_title"
                         android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/ib_round_up"
-                        android:layout_weight="1.0"
-                        android:src="@drawable/plus_black"/>
+                        android:layout_height="wrap_content"
+                        android:text="Sets"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textIsSelectable="false"
+                        android:gravity="center_horizontal"
+                        android:background="#123456"
+                        android:textColor="#999999"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1.0">
+
+
+                        <TextView
+                            android:id="@+id/tv_set_value"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:textSize="50dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="60"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.0"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_below="@id/tv_set_value"
+                            android:padding="5dp"
+                            android:layout_weight="1.0">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:id="@+id/ib_set_down"
+                                android:layout_weight="1.0"
+                                android:src="@drawable/minus_black"/>
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:id="@+id/ib_set_up"
+                                android:layout_weight="1.0"
+                                android:src="@drawable/plus_black"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -247,7 +321,7 @@
                     android:layout_below="@id/tv_break_title"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
-                    android:textSize="100dp"
+                    android:textSize="100sp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="60"

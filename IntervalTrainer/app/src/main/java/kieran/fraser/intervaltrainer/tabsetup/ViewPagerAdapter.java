@@ -36,10 +36,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 WorkoutFragment tab1 = new WorkoutFragment();
                 return tab1;
             case 1:
-                StatsFragment tab2 = new StatsFragment();
+                MusicFragment tab2 = new MusicFragment();
                 return tab2;
             case 2:
-                MusicFragment tab3 = new MusicFragment();
+                StatsFragment tab3 = new StatsFragment();
                 return tab3;
             default:
                 WorkoutFragment defaultfrag = new WorkoutFragment();
