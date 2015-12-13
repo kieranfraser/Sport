@@ -45,6 +45,8 @@ public class Workout {
     private boolean isPaused;
     private boolean isReset;
 
+    private WorkoutFragment workoutFragment;
+
     private WorkoutPlayback workoutPlayback;
 
     public void setPaused(boolean isPaused) {
@@ -55,7 +57,7 @@ public class Workout {
         this.isReset = isReset;
     }
 
-    public Workout(Session session, TextView work, TextView rest,
+    public Workout(WorkoutFragment workoutFragment, Session session, TextView work, TextView rest,
                    TextView rounds, TextView breaks, TextView sets, WorkoutPlayback workoutPlayback) {
         this.session = session;
         this.tvWork = work;
@@ -63,6 +65,8 @@ public class Workout {
         this.tvRounds = rounds;
         this.tvBreak = breaks;
         this.tvSets = sets;
+        this.workoutPlayback = workoutPlayback;
+        this.workoutFragment = workoutFragment;
 
         initialize();
 
@@ -75,7 +79,6 @@ public class Workout {
         this.rounds = Utils.textViewToInt(tvRounds);
         this.breakTime = Utils.textViewToInt(tvBreak);
         this.sets = Utils.textViewToInt(tvSets);
-        this.workoutPlayback = workoutPlayback;
 
         isPaused = false;
         session.setPrevState(State.WORK);
@@ -107,12 +110,17 @@ public class Workout {
                 }
             }
             public void onFinish() {
-                if(Utils.textViewToInt((tvRounds))>0){
-                    if(Utils.textViewToInt(tvSets) == 0){
+
+                decrementSet();
+                if(Utils.textViewToInt((tvRounds))>=1){
+                    if(Utils.textViewToInt(tvSets) < 1){
+                        workoutPlayback.turnDown();
+                        workoutPlayback.startBreak();
                         startBreak();
                     }
                     else{
-                        decrementSet();
+                        workoutPlayback.turnDown();
+                        workoutPlayback.startRest();
                         startRest();
                     }
                 }
@@ -156,6 +164,8 @@ public class Workout {
             }
             public void onFinish() {
                 session.setPrevState(State.PAUSE);
+                workoutPlayback.turnUp();
+                workoutPlayback.stopRest();
                 startWorkout();
             }
         }.start();
@@ -164,6 +174,7 @@ public class Workout {
     private void startBreak(){
         session.setCurrentState(State.BREAK);
         decrementRound();
+        tvSets.setText(String.valueOf(sets));
         count = new CountDownTimer((Utils.textViewToInt(tvBreak)+1)*1000, 1000) {
             public void onTick(long millisUntilFinished) {
 
@@ -185,14 +196,25 @@ public class Workout {
                 }
             }
             public void onFinish() {
-                session.setPrevState(State.BREAK);
-                startWorkout();
+                if(Utils.textViewToInt((tvRounds))== 0) {
+                    finish();
+                }
+                else{
+                    session.setPrevState(State.BREAK);
+                    workoutPlayback.turnUp();
+                    workoutPlayback.stopBreak();
+                    startWorkout();
+                }
             }
         }.start();
     }
 
     private void finish(){
         Log.d("Finished", "Finished");
+        workoutPlayback.stopBreak();
+        workoutPlayback.pausePlaylist();
+        workoutFragment.finished();
+
     }
 
     private void decrementSet(){

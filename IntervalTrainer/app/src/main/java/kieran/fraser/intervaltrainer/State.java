@@ -10,5 +10,6 @@ public enum State {
     BREAK,
     PAUSE,
     WORKING,
+    SET,
     END
 }

@@ -230,7 +230,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener{
         });
         setSessionValues();
         workoutPlayback = new WorkoutPlayback(getActivity());
-        workOut = new Workout(session, workValue, restValue, roundValue, breakValue, setValue, workoutPlayback);
+        workOut = new Workout(this, session, workValue, restValue, roundValue, breakValue, setValue, workoutPlayback);
     }
 
     public void setDefaultValues(){
@@ -249,9 +249,10 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener{
         Toast.makeText(getActivity(), "Go", Toast.LENGTH_LONG).show();
         setSessionValues();
         disableWorkoutButtons();
-        workOut = new Workout(session, workValue, restValue, roundValue, breakValue, setValue, workoutPlayback);
+        workoutPlayback = new WorkoutPlayback(getActivity());
+        workOut = new Workout(this, session, workValue, restValue, roundValue, breakValue, setValue, workoutPlayback);
         workOut.startWorkout();
-        workoutPlayback.startPlaylist();
+        workoutPlayback.start();
     }
 
     private void disableWorkoutButtons(){
@@ -284,6 +285,7 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener{
         breakMinus.setEnabled(true);
         roundPlus.setEnabled(true);
         roundMinus.setEnabled(true);
+        reset.setEnabled(true);
     }
 
     public void rest(){
@@ -297,15 +299,19 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener{
             workOut.setPaused(false);
             switch(session.getCurrentState()){
                 case WORK:
+                    workoutPlayback.resumePlaylist();
                     workOut.startWorkout();
                     break;
                 case REST:
+                    workoutPlayback.resumeBreak();
                     workOut.startRest();
                     break;
             }
         }
         else {
             isPaused = true;
+            workoutPlayback.pausePlaylist();
+            workoutPlayback.pauseBreak();
             session.setPrevState(session.getCurrentState());
             session.setCurrentState(State.PAUSE);
             workOut.setSession(session);
@@ -401,6 +407,11 @@ public class WorkoutFragment extends Fragment implements View.OnClickListener{
         session.setSetValue(Utils.textViewToInt(setValue));
         session.setCurrentState(State.BEGIN);
         session.setPrevState(State.WORK);
+    }
+
+    public void finished(){
+        Toast.makeText(getActivity(), "Finished", Toast.LENGTH_LONG).show();
+        reset();
     }
 
 
